@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import counter from './counter'
+import product from './product'
 
 export default combineReducers({
   router: routerReducer,
-  counter
+    product
 })

@@ -2,43 +2,39 @@ import React from 'react'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+import {map} from 'lodash'
+
 import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from '../../modules/counter'
+  getProducts
+} from '../../modules/product'
 
 const Home = props => (
   <div>
     <h1>Home</h1>
-    <p>Count: {props.count}</p>
+    <p>isLoading: {props.isLoading}</p>
 
     <p>
-      <button onClick={props.increment} disabled={props.isIncrementing}>Increment</button>
-      <button onClick={props.incrementAsync} disabled={props.isIncrementing}>Increment Async</button>
+      <button onClick={props.getProducts} disabled={props.isLoading}>Fetch</button>
     </p>
 
-    <p>
-      <button onClick={props.decrement} disabled={props.isDecrementing}>Decrement</button>
-      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</button>
-    </p>
+      <ul>
+          {map(props.products, (product) => {
+              return <li>{product.name}</li>
+          })}
+      </ul>
 
-    <p><button onClick={() => props.changePage()}>Go to about page via redux</button></p>
+    <p><button onClick={() => props.changePage()}>Go to about page</button></p>
   </div>
 )
 
 const mapStateToProps = state => ({
-  count: state.counter.count,
-  isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing
+  products: state.product.products,
+  isLoading: state.product.loading
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync,
+    getProducts,
   changePage: () => push('/about-us')
 }, dispatch)
 
