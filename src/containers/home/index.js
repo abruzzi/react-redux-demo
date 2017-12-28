@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -9,24 +9,29 @@ import {
   getProducts
 } from '../../modules/product'
 
-const Home = props => (
-  <div>
-    <h1>Home</h1>
-    <p>isLoading: {props.isLoading}</p>
+class Home extends Component {
+    componentDidMount() {
+        this.props.getProducts()
+    }
 
-    <p>
-      <button onClick={props.getProducts} disabled={props.isLoading}>Fetch</button>
-    </p>
+    renderProducts(products) {
+        return (
+            <ul>
+                {map(products, (product) => {
+                    return <li key={product.key}><span className="product-name">{product.name}</span><span className="product-price">{product.price}</span></li>
+                })}
+            </ul>
+        )
+    }
 
-      <ul>
-          {map(props.products, (product) => {
-              return <li>{product.name}</li>
-          })}
-      </ul>
-
-    <p><button onClick={() => props.changePage()}>Go to about page</button></p>
-  </div>
-)
+    render() {
+        const products = this.props.products
+        return (<div>
+            <h2>Product list</h2>
+            {this.renderProducts(products)}
+        </div>)
+    }
+}
 
 const mapStateToProps = state => ({
   products: state.product.products,

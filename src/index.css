@@ -13,3 +13,31 @@ body {
 button:disabled {
   opacity: 0.5;
 }
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+header a {
+  display: inline-block;
+  padding: 4px 8px;
+  margin-right: 8px;
+  text-decoration: none;
+  border-bottom: 1px dashed orangered;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  border-bottom: 1px dashed orangered;
+  padding: 4px 0;
+}
+
+.product-price {
+  float: right;
+}
